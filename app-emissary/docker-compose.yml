@@ -1,4 +1,7 @@
 # docker-compose up --scale zap=2
+# Waiting to see what happens with docker-compose-ui support in order to move to 3.8
+#   https://github.com/francescou/docker-compose-ui/issues/120
+#   https://github.com/francescou/docker-compose-ui/issues/110
 version: "3.6"
 
 networks:
@@ -7,7 +10,7 @@ networks:
 
 services:
   zap:
-    image: owasp/zap2docker-stable:2.9.0
+    image: owasp/zap2docker-stable:2.10.0
     networks:
       compose_pt-net:
     # Soft limit of 12 test sessions.
@@ -24,7 +27,7 @@ services:
       "-config",
       "api.addrs.addr.regex=true",
       "-config",
-      "api.addrs.addr.name=zap|localhost|127.0.0.1|172.25.0.*|appslave_zap_(100|[1-9][0-9]?)",
+      "api.addrs.addr.name=zap|localhost|127.0.0.1|172.25.0.*|appemissary_zap_(100|[1-9][0-9]?)",
       "-config",
       "api.key=${ZAP_API_KEY}"
     ]
